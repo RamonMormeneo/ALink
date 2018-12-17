@@ -1,26 +1,29 @@
-var platformer = platformer || {};
+var zelda = zelda || {};
 
-platformer.enemy = function(game,x,y,radius,speed,level){
- Phaser.Sprite.call(this,game,x,y,'enemy');
- this.anchor.setTo(.5);
- this.animations.add('walkD',[0,1],10,true);
- this.animations.add('walkR',[4,5],10,true);
- this.animations.add('walkL',[8,9],10,true);
- this.animations.add('walkD',[12,13],10,true);
- this.radius=500;
- this.speed = speed;
- this.game.physics.arcade.enable(this);
+zelda.soldier_prefab = function(game,x,y,level)
+{
+    Phaser.Sprite.call(this,game,x,y,'soldier');
+    this.anchor.setTo(.5);
+    //this.scale.x =3;
+    //this.scale.y =3;
+    this.level = level;
+    this.game.physics.arcade.enable(this);
+    this.body.allowGravity = false;
 };
 
-platformer.enemy.prototype = Object.create(Phaser.Sprite.prototype);
-platformer.enemy.prototype.constructor = platformer.Enemy;
+zelda.soldier_prefab.prototype = Object.create(Phaser.Sprite.prototype);
+zelda.soldier_prefab.constructor = zelda.soldier_prefab;
 
-platformer.jumper_prefab.prototype.update = function(){
+zelda.soldier_prefab.prototype.update = function()
+{
+    this.game.physics.arcade.collide(this,this.level.walls);
     this.game.physics.arcade.collide(this,this.level.hero,this.hitHero,null,this);
 };
-platformer.jumper_prefab.prototype.hitHero = function(_enemy,_hero){
-    if(_enemy.body.touching.up && _hero.body.touching.down){
+
+zelda.soldier_prefab.prototype.hitHero = function(_enemy,_hero)
+{ if(gameOptions.Attacking){
         this.kill();
+        _hero.body.velocity.y=-gameOptions.heroJump;
     }else{
         /*
         this.level.camera.shake(0.05,500);
@@ -28,6 +31,6 @@ platformer.jumper_prefab.prototype.hitHero = function(_enemy,_hero){
         this.level.hud_energy.frame =_hero.health;
         _hero.reset(65,100);
         */
-        this.level.hitHero();
+        //this.level.hitHero();
     }
 };

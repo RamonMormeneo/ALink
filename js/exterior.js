@@ -1,13 +1,4 @@
-
-var gameOptions =
-    {
-    gameWidth:800,
-    gameHeight:600,
-    bgColor:'#3399DD',
-    heroGravity:500,
-    heroSpeed:200,
-    heroJump:300    
-    };
+var zelda = zelda || {};
 
 var NumeroRupias = 0;
 var NumeroBombas = 0;
@@ -15,42 +6,42 @@ var NumeroFlechas = 0;
 var NumeroVida = 0;
 var up =false;
 var down=false;
-var ZeldaGame2 =
+zelda.exterior =
     {
             init:function()
             {
-                game.stage.backgroundColor = gameOptions.bgColor;
-                game.physics.startSystem(Phaser.Physics.ARCADE);
-                game.world.enableBody = true;
+                this.game.stage.backgroundColor = gameOptions.bgColor;
+                this.game.physics.startSystem(Phaser.Physics.ARCADE);
+                this.game.world.enableBody = true;
             },
             preload:function()
             {
                 /////////////////////////////////////////////////////////////////////////////////////BACKGROUND
-                game.load.image('background','img/MapaDefenitivoExterior(75X98)de17Pixeles.png');
-                game.load.image('muro','img/Vacio.png');
-                game.load.image('arbusto','img/Arbusto.png');
+                this.load.image('background','img/MapaDefenitivoExterior(75X98)de17Pixeles.png');
+                this.load.image('muro','img/Vacio.png');
+                this.load.image('arbusto','img/Arbusto.png');
                 
                 /////////////////////////////////////////////////////////////////////////////////////HUD
-                game.load.image('HUD_Bomba','img/HUD_Bomba.png');
-                game.load.image('HUD_Flecha','img/HUD_Flecha.png');
-                game.load.image('HUD_Llave','img/Hud_Llave.png');
-                game.load.image('HUD_Life','img/HUD_Life.png');
-                game.load.image('HUD_Rupia','img/HUD_Rupia.png');
-                game.load.image('HUD_CorazonLleno','img/HUD_CorazonLleno.png');
-                game.load.image('HUD_CorazonMedio','img/HUD_CorazonMedio.png');
-                game.load.image('HUD_CorazonVacio','img/HUD_CorazonVacio.png');
-                game.load.image('HUD_BarraEnergia','img/HUD_BarraEnergia.png');
-                game.load.image('HUD_ItemActual','img/HUD_ItemActual.png');
-                game.load.image('HUD_Numero0','img/HUD_Numero0.png');
-                game.load.image('HUD_Numero1','img/HUD_Numero1.png');
-                game.load.image('HUD_Numero2','img/HUD_Numero2.png');
-                game.load.image('HUD_Numero3','img/HUD_Numero3.png');
-                game.load.image('HUD_Numero4','img/HUD_Numero4.png');
-                game.load.image('HUD_Numero5','img/HUD_Numero5.png');
-                game.load.image('HUD_Numero6','img/HUD_Numero6.png');
-                game.load.image('HUD_Numero7','img/HUD_Numero7.png');
-                game.load.image('HUD_Numero8','img/HUD_Numero8.png');
-                game.load.image('HUD_Numero9','img/HUD_Numero9.png');
+                this.load.image('HUD_Bomba','img/HUD_Bomba.png');
+                this.load.image('HUD_Flecha','img/HUD_Flecha.png');
+                this.load.image('HUD_Llave','img/Hud_Llave.png');
+                this.load.image('HUD_Life','img/HUD_Life.png');
+                this.load.image('HUD_Rupia','img/HUD_Rupia.png');
+                this.load.image('HUD_CorazonLleno','img/HUD_CorazonLleno.png');
+                this.load.image('HUD_CorazonMedio','img/HUD_CorazonMedio.png');
+                this.load.image('HUD_CorazonVacio','img/HUD_CorazonVacio.png');
+                this.load.image('HUD_BarraEnergia','img/HUD_BarraEnergia.png');
+                this.load.image('HUD_ItemActual','img/HUD_ItemActual.png');
+                this.load.image('HUD_Numero0','img/HUD_Numero0.png');
+                this.load.image('HUD_Numero1','img/HUD_Numero1.png');
+                this.load.image('HUD_Numero2','img/HUD_Numero2.png');
+                this.load.image('HUD_Numero3','img/HUD_Numero3.png');
+                this.load.image('HUD_Numero4','img/HUD_Numero4.png');
+                this.load.image('HUD_Numero5','img/HUD_Numero5.png');
+                this.load.image('HUD_Numero6','img/HUD_Numero6.png');
+                this.load.image('HUD_Numero7','img/HUD_Numero7.png');
+                this.load.image('HUD_Numero8','img/HUD_Numero8.png');
+                this.load.image('HUD_Numero9','img/HUD_Numero9.png');
                 
                 
                 //ENEMY
@@ -85,7 +76,7 @@ var ZeldaGame2 =
                 this.rightkey =this.game.input.keyboard.addKey(Phaser.Keyboard.D); 
                 
                 /////////////////////////////////////////////////////////////////////////////////////BACKGROUND
-                this.Background = game.add.sprite(-900,-1800,'background');
+                this.Background = this.game.add.sprite(-900,-1800,'background');
                 this.Background.scale.setTo(1.65);
                 
                 this.nivel =[
@@ -195,16 +186,16 @@ var ZeldaGame2 =
                         switch(this.nivel[i][j])
                         {
                             case '0':
-                                muro = game.add.sprite(17*j,17*i,'muro');
-                                muro.body.immovable = true;                    
+                                this.muro = this.game.add.sprite(17*j,17*i,'muro');
+                                this.muro.body.immovable = true;                    
                                 break;
-                            case '0':
-                                muro = game.add.sprite(17*j,17*i,'arbusto');
-                                muro.body.immovable = true;                     
-                                break;
+                            /*case '0':
+                                this.muro = this.game.add.sprite(17*j,17*i,'arbusto');
+                                this.muro.body.immovable = true;                     
+                                break;*/
                             case ',':                                
                                 break;
-                            defaul:
+                            default:
                                 break;
                         }   
                     }
@@ -212,45 +203,44 @@ var ZeldaGame2 =
                 
                 
                 /////////////////////////////////////////////////////////////////////////Barra Energia && ITEM
-                this.Energy = game.add.sprite(60,60,'HUD_BarraEnergia');
+                this.Energy = this.game.add.sprite(60,60,'HUD_BarraEnergia');
                 this.Energy.scale.setTo(2);
-                this.Item = game.add.sprite(100,60,'HUD_ItemActual');
+                this.Item = this.game.add.sprite(100,60,'HUD_ItemActual');
                 this.Item.scale.setTo(2);
                 ////////////////////////////////////////////////////////////////////////Rupias
-                this.Rupias = game.add.sprite(200,60,'HUD_Rupia');
+                this.Rupias = this.game.add.sprite(200,60,'HUD_Rupia');
                 this.Rupias.scale.setTo(2);
-                this.NumeroRupias1 = game.add.sprite(180,80,'HUD_Numero0');
+                this.NumeroRupias1 = this.game.add.sprite(180,80,'HUD_Numero0');
                 this.NumeroRupias1.scale.setTo(2);
-                this.NumeroRupias2 = game.add.sprite(200,80,'HUD_Numero0');
+                this.NumeroRupias2 = this.game.add.sprite(200,80,'HUD_Numero0');
                 this.NumeroRupias2.scale.setTo(2);
-                this.NumeroRupias3 = game.add.sprite(220,80,'HUD_Numero0');
+                this.NumeroRupias3 = this.game.add.sprite(220,80,'HUD_Numero0');
                 this.NumeroRupias3.scale.setTo(2);
                 ///////////////////////////////////////////////////////////////////////Bombas
-                this.Bombas = game.add.sprite(270,60,'HUD_Bomba');
+                this.Bombas = this.game.add.sprite(270,60,'HUD_Bomba');
                 this.Bombas.scale.setTo(2);
-                this.NumeroBombas1 = game.add.sprite(260,80,'HUD_Numero0');
+                this.NumeroBombas1 = this.game.add.sprite(260,80,'HUD_Numero0');
                 this.NumeroBombas1.scale.setTo(2);
-                this.NumeroBombas2 = game.add.sprite(280,80,'HUD_Numero0');
+                this.NumeroBombas2 = this.game.add.sprite(280,80,'HUD_Numero0');
                 this.NumeroBombas2.scale.setTo(2);
                 //////////////////////////////////////////////////////////////////////Flechas
-                this.Flechas = game.add.sprite(340,60,'HUD_Flecha');
+                this.Flechas = this.game.add.sprite(340,60,'HUD_Flecha');
                 this.Flechas.scale.setTo(2);
-                this.NumeroFlechas1 = game.add.sprite(330,80,'HUD_Numero0');
+                this.NumeroFlechas1 = this.game.add.sprite(330,80,'HUD_Numero0');
                 this.NumeroFlechas1.scale.setTo(2);
-                this.NumeroFlechas2 = game.add.sprite(350,80,'HUD_Numero0');
+                this.NumeroFlechas2 = this.game.add.sprite(350,80,'HUD_Numero0');
                 this.NumeroFlechas2.scale.setTo(2)
                 ///////////////////////////////////Corazones
-                this.Corazones = game.add.sprite(500,60,'HUD_Life');
+                this.Corazones = this.game.add.sprite(500,60,'HUD_Life');
                 this.Corazones.scale.setTo(3);
-                this.Corazon1 = game.add.sprite(460,90,'HUD_CorazonLleno');
+                this.Corazon1 = this.game.add.sprite(460,90,'HUD_CorazonLleno');
                 this.Corazon1.scale.setTo(3);
-                this.Corazon2 = game.add.sprite(480,90,'HUD_CorazonLleno');
+                this.Corazon2 = this.game.add.sprite(480,90,'HUD_CorazonLleno');
                 this.Corazon2.scale.setTo(3);
-                this.Corazon3 = game.add.sprite(500,90,'HUD_CorazonLleno');
+                this.Corazon3 = this.game.add.sprite(500,90,'HUD_CorazonLleno');
                 this.Corazon3.scale.setTo(3); 
                 
-                this.enemy= new exterior.Enemy(this.game,100,100,368,100,this);
-        this.game.add.existing(this.enemy);
+               
                 
             },
         
@@ -337,73 +327,73 @@ var ZeldaGame2 =
                 {  
                     case 0:
                     {
-                        this.Corazon1 = game.add.sprite(460,90,'HUD_CorazonVacio');
+                        this.Corazon1 = this.game.add.sprite(460,90,'HUD_CorazonVacio');
                         this.Corazon1.scale.setTo(3);
-                        this.Corazon2 = game.add.sprite(480,90,'HUD_CorazonVacio');
+                        this.Corazon2 = this.game.add.sprite(480,90,'HUD_CorazonVacio');
                         this.Corazon2.scale.setTo(3);
-                        this.Corazon3 = game.add.sprite(500,90,'HUD_CorazonVacio');
+                        this.Corazon3 = this.game.add.sprite(500,90,'HUD_CorazonVacio');
                         this.Corazon3.scale.setTo(3);
                         break;
                         
                     }
                     case 1:
                     {
-                        this.Corazon1 = game.add.sprite(460,90,'HUD_CorazonMedio');
+                        this.Corazon1 = this.game.add.sprite(460,90,'HUD_CorazonMedio');
                         this.Corazon1.scale.setTo(3);
-                        this.Corazon2 = game.add.sprite(480,90,'HUD_CorazonVacio');
+                        this.Corazon2 = this.game.add.sprite(480,90,'HUD_CorazonVacio');
                         this.Corazon2.scale.setTo(3);
-                        this.Corazon3 = game.add.sprite(500,90,'HUD_CorazonVacio');
+                        this.Corazon3 = this.game.add.sprite(500,90,'HUD_CorazonVacio');
                         this.Corazon3.scale.setTo(3);
                         break;
                         
                     }
                     case 2:
                     {
-                        this.Corazon1 = game.add.sprite(460,90,'HUD_CorazonLleno');
+                        this.Corazon1 =this.game.add.sprite(460,90,'HUD_CorazonLleno');
                         this.Corazon1.scale.setTo(3);
-                        this.Corazon2 = game.add.sprite(480,90,'HUD_CorazonVacio');
+                        this.Corazon2 = this.game.add.sprite(480,90,'HUD_CorazonVacio');
                         this.Corazon2.scale.setTo(3);
-                        this.Corazon3 = game.add.sprite(500,90,'HUD_CorazonVacio');
+                        this.Corazon3 = this.game.add.sprite(500,90,'HUD_CorazonVacio');
                         this.Corazon3.scale.setTo(3);
                         break;
                     }
                     case 3:
                     {
-                        this.Corazon1 = game.add.sprite(460,90,'HUD_CorazonLleno');
+                        this.Corazon1 = this.game.add.sprite(460,90,'HUD_CorazonLleno');
                         this.Corazon1.scale.setTo(3);
-                        this.Corazon2 = game.add.sprite(480,90,'HUD_CorazonMedio');
+                        this.Corazon2 = this.game.add.sprite(480,90,'HUD_CorazonMedio');
                         this.Corazon2.scale.setTo(3);
-                        this.Corazon3 = game.add.sprite(500,90,'HUD_CorazonVacio');
+                        this.Corazon3 = this.game.add.sprite(500,90,'HUD_CorazonVacio');
                         this.Corazon3.scale.setTo(3);
                         break;
                     }
                     case 4:
                     {
-                        this.Corazon1 = game.add.sprite(460,90,'HUD_CorazonLleno');
+                        this.Corazon1 = this.game.add.sprite(460,90,'HUD_CorazonLleno');
                         this.Corazon1.scale.setTo(3);
-                        this.Corazon2 = game.add.sprite(480,90,'HUD_CorazonLleno');
+                        this.Corazon2 = this.game.add.sprite(480,90,'HUD_CorazonLleno');
                         this.Corazon2.scale.setTo(3);
-                        this.Corazon3 = game.add.sprite(500,90,'HUD_CorazonVacio');
+                        this.Corazon3 = this.game.add.sprite(500,90,'HUD_CorazonVacio');
                         this.Corazon3.scale.setTo(3);
                         break;
                     }
                     case 5:
                     {
-                        this.Corazon1 = game.add.sprite(460,90,'HUD_CorazonLleno');
+                        this.Corazon1 = this.game.add.sprite(460,90,'HUD_CorazonLleno');
                         this.Corazon1.scale.setTo(3);
-                        this.Corazon2 = game.add.sprite(480,90,'HUD_CorazonLleno');
+                        this.Corazon2 = this.game.add.sprite(480,90,'HUD_CorazonLleno');
                         this.Corazon2.scale.setTo(3);
-                        this.Corazon3 = game.add.sprite(500,90,'HUD_CorazonMedio');
+                        this.Corazon3 = this.game.add.sprite(500,90,'HUD_CorazonMedio');
                         this.Corazon3.scale.setTo(3);
                         break;
                     }
                     case 6:
                     {
-                        this.Corazon1 = game.add.sprite(460,90,'HUD_CorazonLleno');
+                        this.Corazon1 = this.game.add.sprite(460,90,'HUD_CorazonLleno');
                         this.Corazon1.scale.setTo(3);
-                        this.Corazon2 = game.add.sprite(480,90,'HUD_CorazonLleno');
+                        this.Corazon2 = this.game.add.sprite(480,90,'HUD_CorazonLleno');
                         this.Corazon2.scale.setTo(3);
-                        this.Corazon3 = game.add.sprite(500,90,'HUD_CorazonLleno');
+                        this.Corazon3 = this.game.add.sprite(500,90,'HUD_CorazonLleno');
                         this.Corazon3.scale.setTo(3);
                         break;
                     }
@@ -421,47 +411,47 @@ var ZeldaGame2 =
                    switch(NumeroRupias)
                     {
                         case 0: 
-                                this.NumeroRupias3 = game.add.sprite(220,80,'HUD_Numero0');
+                                this.NumeroRupias3 = this.game.add.sprite(220,80,'HUD_Numero0');
                                 this.NumeroRupias3.scale.setTo(2);
                             break;
                         case 1:
                                 
-                                this.NumeroRupias3 = game.add.sprite(220,80,'HUD_Numero1');
+                                this.NumeroRupias3 = this.game.add.sprite(220,80,'HUD_Numero1');
                                 this.NumeroRupias3.scale.setTo(2);
                             break;
                         case 2:
                                 
-                                this.NumeroRupias3 = game.add.sprite(220,80,'HUD_Numero2');
+                                this.NumeroRupias3 = this.game.add.sprite(220,80,'HUD_Numero2');
                                 this.NumeroRupias3.scale.setTo(2);
                             break;
                         case 3:                            
-                                this.NumeroRupias3 = game.add.sprite(220,80,'HUD_Numero3');
+                                this.NumeroRupias3 = this.game.add.sprite(220,80,'HUD_Numero3');
                                 this.NumeroRupias3.scale.setTo(2);
                             break;
                         case 4:
                                 
-                                this.NumeroRupias3 = game.add.sprite(220,80,'HUD_Numero4');
+                                this.NumeroRupias3 = this.game.add.sprite(220,80,'HUD_Numero4');
                                 this.NumeroRupias3.scale.setTo(2);
                             break;
                         case 5:
                                 
-                                this.NumeroRupias3 = game.add.sprite(220,80,'HUD_Numero5');
+                                this.NumeroRupias3 = this.game.add.sprite(220,80,'HUD_Numero5');
                                 this.NumeroRupias3.scale.setTo(2);
                             break;
                         case 6:                               
-                                this.NumeroRupias3 = game.add.sprite(220,80,'HUD_Numero6');
+                                this.NumeroRupias3 = this.game.add.sprite(220,80,'HUD_Numero6');
                                 this.NumeroRupias3.scale.setTo(2);
                             break;
                         case 7:                                
-                                this.NumeroRupias3 = game.add.sprite(220,80,'HUD_Numero7');
+                                this.NumeroRupias3 = this.game.add.sprite(220,80,'HUD_Numero7');
                                 this.NumeroRupias3.scale.setTo(2);
                             break;
                         case 8:
-                                this.NumeroRupias3 = game.add.sprite(220,80,'HUD_Numero8');
+                                this.NumeroRupias3 = this.game.add.sprite(220,80,'HUD_Numero8');
                                 this.NumeroRupias3.scale.setTo(2);
                             break;
                         case 9:
-                                this.NumeroRupias3 = game.add.sprite(220,80,'HUD_Numero9');
+                                this.NumeroRupias3 = this.game.add.sprite(220,80,'HUD_Numero9');
                                 this.NumeroRupias3.scale.setTo(2);
                             break;
                         default:
@@ -478,43 +468,43 @@ var ZeldaGame2 =
                    switch(NumeroBombas)
                     {
                         case 0:    
-                                this.NumeroBombas2 = game.add.sprite(280,80,'HUD_Numero0');
+                                this.NumeroBombas2 = this.game.add.sprite(280,80,'HUD_Numero0');
                                 this.NumeroBombas2.scale.setTo(2);
                             break;
                         case 1:    
-                                this.NumeroBombas2 = game.add.sprite(280,80,'HUD_Numero1');
+                                this.NumeroBombas2 = this.game.add.sprite(280,80,'HUD_Numero1');
                                 this.NumeroBombas2.scale.setTo(2);
                             break;
                         case 2:    
-                                this.NumeroBombas2 = game.add.sprite(280,80,'HUD_Numero2');
+                                this.NumeroBombas2 = this.game.add.sprite(280,80,'HUD_Numero2');
                                 this.NumeroBombas2.scale.setTo(2);
                             break;
                         case 3:    
-                                this.NumeroBombas2 = game.add.sprite(280,80,'HUD_Numero3');
+                                this.NumeroBombas2 = this.game.add.sprite(280,80,'HUD_Numero3');
                                 this.NumeroBombas2.scale.setTo(2);
                             break;
                         case 4:    
-                                this.NumeroBombas2 = game.add.sprite(280,80,'HUD_Numero4');
+                                this.NumeroBombas2 = this.game.add.sprite(280,80,'HUD_Numero4');
                                 this.NumeroBombas2.scale.setTo(2);
                             break;
                         case 5:    
-                                this.NumeroBombas2 = game.add.sprite(280,80,'HUD_Numero5');
+                                this.NumeroBombas2 = this.game.add.sprite(280,80,'HUD_Numero5');
                                 this.NumeroBombas2.scale.setTo(2);
                             break;
                         case 6:     
-                                this.NumeroBombas2 = game.add.sprite(280,80,'HUD_Numero6');
+                                this.NumeroBombas2 = this.game.add.sprite(280,80,'HUD_Numero6');
                                 this.NumeroBombas2.scale.setTo(2);
                             break;
                         case 7:    
-                                this.NumeroBombas2 = game.add.sprite(280,80,'HUD_Numero7');
+                                this.NumeroBombas2 = this.game.add.sprite(280,80,'HUD_Numero7');
                                 this.NumeroBombas2.scale.setTo(2);
                             break;
                         case 8:    
-                                this.NumeroBombas2 = game.add.sprite(280,80,'HUD_Numero8');
+                                this.NumeroBombas2 = this.game.add.sprite(280,80,'HUD_Numero8');
                                 this.NumeroBombas2.scale.setTo(2);
                             break;
                         case 9:    
-                                this.NumeroBombas2 = game.add.sprite(280,80,'HUD_Numero9');
+                                this.NumeroBombas2 = this.game.add.sprite(280,80,'HUD_Numero9');
                                 this.NumeroBombas2.scale.setTo(2);
                             break;
                         default:
@@ -532,42 +522,42 @@ var ZeldaGame2 =
                    switch(NumeroFlechas)
                     {
                         case 0:    
-                                this.NumeroFlechas2 = game.add.sprite(350,80,'HUD_Numero0');
+                                this.NumeroFlechas2 = this.game.add.sprite(350,80,'HUD_Numero0');
                                 this.NumeroFlechas2.scale.setTo(2)
                             break;
                         case 1:    
-                                this.NumeroFlechas2 = game.add.sprite(350,80,'HUD_Numero1');
+                                this.NumeroFlechas2 = this.game.add.sprite(350,80,'HUD_Numero1');
                                 this.NumeroFlechas2.scale.setTo(2)
                             break;
                         case 2:    
-                                this.NumeroFlechas2 = game.add.sprite(350,80,'HUD_Numero2');
+                                this.NumeroFlechas2 = this.game.add.sprite(350,80,'HUD_Numero2');
                                 this.NumeroFlechas2.scale.setTo(2)
                             break;
                         case 3:    
-                                this.NumeroFlechas2 = game.add.sprite(350,80,'HUD_Numero3');
+                                this.NumeroFlechas2 = this.game.add.sprite(350,80,'HUD_Numero3');
                                 this.NumeroFlechas2.scale.setTo(2)
                             break;
                         case 4:    
-                                this.NumeroFlechas2 = game.add.sprite(350,80,'HUD_Numero4');
+                                this.NumeroFlechas2 = this.game.add.sprite(350,80,'HUD_Numero4');
                                 this.NumeroFlechas2.scale.setTo(2)
                             break;
                         case 5:    
-                                this.NumeroFlechas2 = game.add.sprite(350,80,'HUD_Numero5');
+                                this.NumeroFlechas2 = this.game.add.sprite(350,80,'HUD_Numero5');
                                 this.NumeroFlechas2.scale.setTo(2)
                             break;
                         case 6:    
-                                this.NumeroFlechas2 = game.add.sprite(350,80,'HUD_Numero6');
+                                this.NumeroFlechas2 = this.game.add.sprite(350,80,'HUD_Numero6');
                                 this.NumeroFlechas2.scale.setTo(2)
                             break;
                         case 7:    
-                                this.NumeroFlechas2 = game.add.sprite(350,80,'HUD_Numero7');
+                                this.NumeroFlechas2 = this.game.add.sprite(350,80,'HUD_Numero7');
                                 this.NumeroFlechas2.scale.setTo(2)
                             break;
                         case 8:    
-                                this.NumeroFlechas2 = game.add.sprite(350,80,'HUD_Numero8');
+                                this.NumeroFlechas2 = this.game.add.sprite(350,80,'HUD_Numero8');
                                 this.NumeroFlechas2.scale.setTo(2)
                         case 9:    
-                                this.NumeroFlechas2 = game.add.sprite(350,80,'HUD_Numero9');
+                                this.NumeroFlechas2 = this.game.add.sprite(350,80,'HUD_Numero9');
                                 this.NumeroFlechas2.scale.setTo(2)
                             break;
                         default:
@@ -579,7 +569,3 @@ var ZeldaGame2 =
             
     
 };
-
-var game = new Phaser.Game(gameOptions.gameWidth,gameOptions.gameHeight,Phaser.AUTO,null,this,false,false);
-
-game.state.add('exterior',ZeldaGame2);
