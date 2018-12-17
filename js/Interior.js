@@ -6,6 +6,7 @@ var NumeroFlechas = 0;
 var NumeroVida = 6;
 var time =0;
 var acttime=0;
+var dmg=false;
 zelda.interior =
     {
             init:function()
@@ -106,7 +107,7 @@ zelda.interior =
                         }
                     }
                 }
-                
+                NumeroVida=6;
                 
                 /////////////////////////////////////////////////////////////////////////Barra Energia && ITEM
                 this.Energy = this.game.add.sprite(60,60,'HUD_BarraEnergia');
@@ -169,6 +170,16 @@ zelda.interior =
                 this.game.add.existing(this.soldier);
                 
             },
+        hitHero:function(){
+            if(!dmg)
+                {
+                    this.camera.shake(0.05,500);
+                    this.camera.flash(0xFF0000,500);
+                    NumeroVida--;
+                    this.hero.body.velocity.x =- 1000000000000000;
+                }
+            
+        },
             update:function()
            {    
                /////////////////////////////////////////////////////////LINK

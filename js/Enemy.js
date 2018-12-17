@@ -1,14 +1,27 @@
 var zelda = zelda || {};
-
+var live;
+var Down = true;
+var Left=false;
+var Up=false;
+var Right = false;
+var time =0;
+var pos = 0;
 zelda.soldier_prefab = function(game,x,y,level)
 {
     Phaser.Sprite.call(this,game,x,y,'soldier');
     this.anchor.setTo(.5);
-    //this.scale.x =3;
-    //this.scale.y =3;
+    this.animation.add('MDown',[0,1,2,3],10,true);
+    //this.animation.add('Left',[8,9,10,11],10,true);
+    //this.animation.add('Up',[12,13,14,15],10,true);
+    //this.animation.add('Right',[4,5,6,7],10,true);
+    this.animation.play('MDown');
     this.level = level;
     this.game.physics.arcade.enable(this);
     this.body.allowGravity = false;
+    this.body.immovable = true;
+    live=2;
+    time=0;
+    pos=0;
 };
 
 zelda.soldier_prefab.prototype = Object.create(Phaser.Sprite.prototype);
@@ -18,11 +31,52 @@ zelda.soldier_prefab.prototype.update = function()
 {
     this.game.physics.arcade.collide(this,this.level.walls);
     this.game.physics.arcade.collide(this,this.level.hero,this.hitHero,null,this);
+    time+=0.033;
+    /*if(time>=3)
+    {
+       switch(pos)
+        {
+                time=0;
+            case 0:
+             {
+                 Down=false;
+                 Left=true;
+                 pos=1;
+                  break;
+             }
+            case 1:
+                {
+                    Left=false;
+                    Up=true;
+                    pos=2;
+                    break;
+                }
+            case 2:
+                {
+                    Up=false;
+                    Right=true;
+                    pos=3;
+                    break;
+                }
+            case 3:
+                {
+                    Right=false;
+                    Down=true;
+                    pos=0;
+                    break;
+                }
+        }
+    }*/
 };
 
 zelda.soldier_prefab.prototype.hitHero = function(_enemy,_hero)
 { if(gameOptions.Attacking){
-        this.kill();
+       live-=1;
+    if(live==0)
+        {
+            this.kill();
+        }
+   
         _hero.body.velocity.y=-gameOptions.heroJump;
     }else{
         /*
@@ -31,6 +85,25 @@ zelda.soldier_prefab.prototype.hitHero = function(_enemy,_hero)
         this.level.hud_energy.frame =_hero.health;
         _hero.reset(65,100);
         */
-        //this.level.hitHero();
+        if(_enemy.body.touching.up && _hero.body.touching.down && Up)
+        {
+            this.level.hitHero();
+        }
+        else if(_enemy.body.touching.down && _hero.body.touching.up && Down)
+        {
+            this.level.hitHero();
+        }
+        else if(_enemy.body.touching.left && _hero.body.touching.right && Left)
+        {
+            this.level.hitHero();
+        }
+        else if(_enemy.body.touching.right && _hero.body.touching.left && Right)
+        {
+            this.level.hitHero();
+        }
+        else{
+            
+        }
+        
     }
 };
