@@ -1,3 +1,4 @@
+var Enem = Enem || {};
 
 var gameOptions =
     {
@@ -570,4 +571,5 @@ var game = new Phaser.Game(gameOptions.gameWidth,gameOptions.gameHeight,Phaser.A
 
 game.state.add('main',ZeldaGame);
 game.state.add('exterior',ZeldaGame2);
-game.state.start('main');
+game.state.add('batt',Enem.Battel);
+game.state.start('batt');
