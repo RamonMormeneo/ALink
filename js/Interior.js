@@ -43,7 +43,7 @@ zelda.interior =
                 this.load.image('HUD_Numero7','img/HUD_Numero7.png');
                 this.load.image('HUD_Numero8','img/HUD_Numero8.png');
                 this.load.image('HUD_Numero9','img/HUD_Numero9.png');
-                this.load.spritesheet('soldier','assets/Enemi/Soldier 2.png',54,87);
+                this.load.spritesheet('soldier','assets/Enemi/Soldier 2.png',52,80);
                 
                
             },
