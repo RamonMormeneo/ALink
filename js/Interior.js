@@ -7,6 +7,10 @@ var NumeroVida = 6;
 var time =0;
 var acttime=0;
 var dmg=false;
+var atack1;
+var atack2;
+var atack3;
+var atack4;
 zelda.interior =
     {
             init:function()
@@ -44,8 +48,7 @@ zelda.interior =
                 this.load.image('HUD_Numero8','img/HUD_Numero8.png');
                 this.load.image('HUD_Numero9','img/HUD_Numero9.png');
                 this.load.spritesheet('soldier','assets/Enemi/Soldier 2.png',52,80);
-                
-               
+              
             },
             create:function()
             {     
@@ -156,16 +159,24 @@ zelda.interior =
                 this.hero.animations.add('runR',[8,9,10,11,12,13,14,15],15,true);
                 this.hero.animations.add('runU',[16,17,18,19,20,21,22,23],15,true);
                 this.hero.animations.add('runD',[24,25,26,27,28,29,30,31],15,true);
-                this.hero.animations.add('attackL',[64,65,66,67,68,69,70,0],25,true);
-                this.hero.animations.add('attackR',[72,73,74,75,76,77,78,8],25,true);
-                this.hero.animations.add('attackU',[80,81,82,83,84,85,86,16],25,true);
-                this.hero.animations.add('attackD',[88,89,90,91,92,93,94,24],25,true);
+                atack1=this.hero.animations.add('attackL',[64,65,66,67,68,69,70,0],25,true);
+                atack2=this.hero.animations.add('attackR',[72,73,74,75,76,77,78,8],25,true);
+                atack3=this.hero.animations.add('attackU',[80,81,82,83,84,85,86,16],25,true);
+                atack4=this.hero.animations.add('attackD',[88,89,90,91,92,93,94,24],25,true);
                 this.game.physics.arcade.enable(this.hero);
-                
+                this.hero.body.setSize(100, 50, 50, 25);
+                atack1.loop=false;
+                atack1.onComplete.add(this.animationStopped, this);
+                atack2.loop=false;
+                atack2.onComplete.add(this.animationStopped, this);
+                atack3.loop=false;
+                atack3.onComplete.add(this.animationStopped, this);
+                atack4.loop=false;
+                atack4.onComplete.add(this.animationStopped, this);
                 /*this.soldier = this.game.add.sprite(300,120,'soldier',24);
                 this.soldier.anchor.setTo(.5);
                 this.game.physics.arcade.enable(this.soldier);*/
-                
+                //this.game.add.text(32, 64+32, 'Animation stopped', { fill: 'white' });
                 this.soldier = new zelda.soldier_prefab(this.game,600,120,this);
                 this.game.add.existing(this.soldier);
                 
@@ -180,6 +191,12 @@ zelda.interior =
                 }
             
         },
+    animationStopped:function()
+    {
+       this.hero.body.setSize(100, 50, 50, 25);
+       gameOptions.Attacking=false;      
+          
+    },
             update:function()
            {    
                /////////////////////////////////////////////////////////LINK
@@ -244,6 +261,8 @@ zelda.interior =
         {
             gameOptions.Attacking=true;
             acttime=time;
+            
+            this.hero.body.setSize(150, 50, 50, 25);
             if(gameOptions.Left)
                 {
                 this.hero.animations.play('attackL');
@@ -262,10 +281,7 @@ zelda.interior =
                 }
         }
         else{
-            if(time - acttime >= 0.6)
-            {
-               gameOptions.Attacking=false;      
-            }
+          
         }
         
                 

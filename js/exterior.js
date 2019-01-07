@@ -240,7 +240,7 @@ zelda.exterior =
                 this.Corazon3 = this.game.add.sprite(500,90,'HUD_CorazonLleno');
                 this.Corazon3.scale.setTo(3); 
                 
-               
+                this.hero.body.setSize(100, 50, 50, 25);
                 
             },
         
